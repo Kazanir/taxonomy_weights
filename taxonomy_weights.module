@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function taxonomy_weights_views_api() {
+  return array(
+    'api' => '3',
+    'path' => drupal_get_path('module', 'taxonomy_weights') . '/views',
+  );
+}
+
+/**
+ * Implements hook_preprocess_views_view_table().
+ */
+function taxonomy_weights_preprocess_views_view_table(&$vars) {
+  // @todo check if this view should be processed by us.
+  if (empty($vars['view']->field['weight']) || !($vars['view']->field['weight'] instanceof taxonomy_weights_handler_field_weight)) {
+    return;
+  }
+  // Add table class.
+  $vars['classes_array'][] = 'draggable';
+
+  // Add row class.
+  foreach ($vars['row_classes'] as &$row_classes) {
+    $row_classes[] = 'draggable';
+  }
+  $vars['attributes_array']['id'] = drupal_html_id('taxonomy-weight-table-' . $vars['view']->name . '-' . $vars['view']->current_display);
+  drupal_add_tabledrag($vars['attributes_array']['id'], 'order', 'sibling', 'taxonomy-weight-field');
+}
+

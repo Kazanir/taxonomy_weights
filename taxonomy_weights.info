@@ -1,0 +1,7 @@
+name = Taxonomy Index Weights
+description = Allows nodes assigned to taxonomy terms to be weighted individually by term.
+packages = Others
+core = 7.x
+dependencies[] = views
+dependencies[] = taxonomy
+files[] = views/taxonomy_weights_handler_field_weight.inc
