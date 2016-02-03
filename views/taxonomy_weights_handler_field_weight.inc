@@ -57,7 +57,7 @@ class taxonomy_weights_handler_field_weight extends views_handler_field {
     if (!empty($updates)) {
       $txn = db_transaction();
       foreach ($updates as $u) {
-        db_query("UPDATE taxonomy_index SET weight = :w WHERE tid = :t AND nid = :n;", array(':w' => $u->weight, ':t' => $u->tid, ':n' => $u->nid));
+        db_query("UPDATE {taxonomy_index} SET weight = :w WHERE tid = :t AND nid = :n;", array(':w' => $u->weight, ':t' => $u->tid, ':n' => $u->nid));
       }
       unset($txn);
     }
